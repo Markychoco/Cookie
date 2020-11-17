@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Set and Get Cookies in JavaScript</title>
+</head>
+<body>
+    <script>
+    
+    function setCookie(name, value, daysToLive) {
+        
+        var cookie = name + "=" + encodeURIComponent(value);
+    
+        if(typeof daysToLive === "number") {
+            
+            cookie += "; max-age=" + (daysToLive*24*60*60);
+    
+            document.cookie = cookie;
+        }
+    }
+    
+    
+    function getCookie(name) {
+       
+        var cookieArr = document.cookie.split(";");
+    
+        
+        for(var i = 0; i < cookieArr.length; i++) {
+            var cookiePair = cookieArr[i].split("=");
+    
+            if(name == cookiePair[0].trim()) {
+               
+                return decodeURIComponent(cookiePair[1]);
+            }
+        }
+    
+        
+        return null;
+    }
+    
+    
+    function checkCookie() {
+        
+        var firstName = getCookie("firstName");
+    
+        if(firstName != null) {
+            alert("Welcome again, " + firstName);
+        } else {
+            firstName = prompt("Please enter your first name:");
+            if(firstName != "" && firstName != null) {
+                
+                setCookie("firstName", firstName, 1);
+            }
+        }
+    }
+    
+    
+    window.onload = checkCookie;
+
+ 
+    </script>
+    
+</body>
+</html>
